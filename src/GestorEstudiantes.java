@@ -22,7 +22,7 @@ public class GestorEstudiantes {
     // Encuentra al estudiante con la mejor nota media
     public static Estudiante encontrarMejorEstudiante(Estudiante[] estudiantes) {
         if (estudiantes == null || estudiantes.length == 0) {
-            return null; // Evita errores con arrays vacíos
+            return null; // Evita errores cuando el estudiante este vació
         }
 
         Estudiante mejor = null;

@@ -40,13 +40,23 @@ public class GestorEstudiantes {
 
     // Guarda los resultados en un fichero
     public static void guardarResultados(Estudiante[] estudiantes, String rutaFichero) {
+        if (estudiantes == null || rutaFichero == null || rutaFichero.isEmpty()) {
+            // Si el array de estudiantes o la ruta del fichero es null o vacía, mostramos un mensaje de error
+            System.out.println("Datos inválidos para guardar resultados.");
+            return; // Salimos del método si los datos no son válidos
+        }
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(rutaFichero))) {
             for (Estudiante estudiante : estudiantes) {
-                writer.write("Nombre: " + estudiante.getNombre() + ", Nota Media: " +
-                        calcularNotaMedia(estudiante)); // Posible fallo si calcularNotaMedia lanza una excepción
-                writer.newLine();
+                // Comprobamos que el estudiante no sea null
+                if (estudiante != null) {
+                    double notaMedia = calcularNotaMedia(estudiante);
+                    writer.write("Nombre: " + estudiante.getNombre() + ", Nota Media: " + notaMedia);
+                    writer.newLine();
+                }
             }
         } catch (IOException e) {
+            // Capturamos cualquier error
             System.out.println("Error al guardar el fichero: " + e.getMessage());
         }
     }
